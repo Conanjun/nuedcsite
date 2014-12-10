@@ -47,11 +47,6 @@ class Album(models.Model):
         return join(lst, ', ')
     images.allow_tags = True
 
-class Tag(models.Model):
-    tag = models.CharField(max_length=50)
-    def __unicode__(self):
-        return self.tag
-
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ["title"]
@@ -70,5 +65,4 @@ class ImageAdmin(admin.ModelAdmin):
         obj.save()
 
 admin.site.register(Album, AlbumAdmin)
-admin.site.register(Tag, TagAdmin)
 admin.site.register(Image, ImageAdmin)

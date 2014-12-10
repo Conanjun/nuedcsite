@@ -5,29 +5,11 @@ import os
 from PIL import Image as PImage
 from NuedcSite.settings import  MEDIA_ROOT
 
-class Album(models.Model):
-    title = models.CharField(max_length=60)
-    public = models.BooleanField(default=False)
-    def __unicode__(self):
-        return self.title
-    def images(self):
-        lst = [x.image.name for x in self.image_set.all()]
-        lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
-        return join(lst, ', ')
-    images.allow_tags = True
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=50)
-    def __unicode__(self):
-        return self.tag
 
 class Image(models.Model):
-    title = models.CharField(max_length=60, blank=True, null=True)
     image = models.FileField(upload_to="images/")
-    tags = models.ManyToManyField(Tag, blank=True)
-    albums = models.ManyToManyField(Album, blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=50)
+    rating = models.IntegerField(default=0)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
 
@@ -45,10 +27,6 @@ class Image(models.Model):
         """Image size."""
         return "%s x %s" % (self.width, self.height)
 
-    def tags_(self):
-        lst = [x[1] for x in self.tags.values_list()]
-        return str(join(lst, ', '))
-
     def albums_(self):
         lst = [x[1] for x in self.albums.values_list()]
         return str(join(lst, ', '))
@@ -57,6 +35,22 @@ class Image(models.Model):
         return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % (
                                                                     (self.image.name, self.image.name))
     thumbnail.allow_tags = True
+
+class Album(models.Model):
+    title = models.CharField(max_length=60)
+    image = models.ManyToManyField(Image)
+    def __unicode__(self):
+        return self.title
+    def images(self):
+        lst = [x.image.name for x in self.image_set.all()]
+        lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
+        return join(lst, ', ')
+    images.allow_tags = True
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=50)
+    def __unicode__(self):
+        return self.tag
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
@@ -68,9 +62,8 @@ class TagAdmin(admin.ModelAdmin):
 class ImageAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     # search_fields = ["title"]
-    list_display = ["__unicode__", "title", "user", "rating", "size", "tags_", "albums_",
-        "thumbnail", "created"]
-    list_filter = ["tags", "albums", "user"]
+    list_display = ["__unicode__","image","rating", "size","albums_", "thumbnail", "created"]
+    #list_filter = ["tags", "albums"]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user

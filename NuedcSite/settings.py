@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'album',
     'news',
+    'files',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'album',
     'news',
     'files',
+    'tinymce',
 )
 
 # A sample logging configuration. The only tangible logging

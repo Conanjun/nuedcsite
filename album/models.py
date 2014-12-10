@@ -27,10 +27,6 @@ class Image(models.Model):
         """Image size."""
         return "%s x %s" % (self.width, self.height)
 
-    def albums_(self):
-        lst = [x[1] for x in self.albums.values_list()]
-        return str(join(lst, ', '))
-
     def thumbnail(self):
         return """<a href="/media/%s"><img border="0" alt="" src="/media/%s" height="40" /></a>""" % (
                                                                     (self.image.name, self.image.name))
@@ -51,13 +47,10 @@ class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     list_display = ["title"]
 
-class TagAdmin(admin.ModelAdmin):
-    list_display = ["tag"]
-
 class ImageAdmin(admin.ModelAdmin):
     search_fields = ["title"]
     # search_fields = ["title"]
-    list_display = ["__unicode__","image","rating", "size","albums_", "thumbnail", "created"]
+    list_display = ["__unicode__","image","rating", "size","thumbnail", "created"]
     #list_filter = ["tags", "albums"]
 
     def save_model(self, request, obj, form, change):

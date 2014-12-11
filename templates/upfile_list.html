@@ -1,13 +1,43 @@
 {% extends "base.html" %}
 
+{% block header %}
+<div class="blog-header">
+    <h1 class="blog-title">资料下载</h1>
+    <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
+</div>
+{% endblock %}
+
 {% block content %}
-	
-	<ul class="pagination">
-        <li><a href="?page={{ contacts.previous_page_number }}">&laquo;</a></li>
-        {% for i in len %}
-  	    <li><a href="?page={{ i }}">{{ i }}</a></li>
+
+
+    <div class="col-sm-5 col-lg-8">
+        {% for ls in this_page.object_list %}
+        <div class="panel panel-primary">
+		    <div class="panel-heading">{{ ls.title }}</div>
+			<div class="panel-body">
+		        <p>{{ ls.descript }}</p>
+                <div>
+                    <div style="float: left">
+   		                <form action="/media/{{ls.upfile.name}}" method="get" target="_blank">
+                            <button type="submit">下载</button>
+                        </form>
+                    </div>
+
+                    <div style="float: right">
+                        <div style="float:right"><p>{{ ls.created }}</p></div>
+                    </div>
+   		        </div>
+   		    </div>
+        </div>
         {% endfor %}
-        <li><a href="?page={{ contacts.next_page_number }}">&raquo;</a></li>
-    </ul>
+
+        <ul class="pagination">
+            <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
+            {% for i in length %}
+            <li class="current"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
+        </ul>
+    </div>
 
 {% endblock %}

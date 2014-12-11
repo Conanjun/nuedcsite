@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+	<ul class="pagination">
+        <li><a href="?page={{ contacts.previous_page_number }}">&laquo;</a></li>
+        {% for i in len %}
+  	    <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endfor %}
+        <li><a href="?page={{ contacts.next_page_number }}">&raquo;</a></li>
+    </ul>
+
+{% endblock %}

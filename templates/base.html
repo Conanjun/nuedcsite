@@ -27,7 +27,7 @@
           <a class="blog-nav-item {% ifequal nav 'news' %}active{% endifequal %}"
           href="{% url news_index %}"><i class="icon-comments-alt"></i>新闻</a>
           <a class="blog-nav-item {% ifequal nav 'notify' %}active{% endifequal %}"
-          href="#"><i class="icon-bell-alt"></i>公告</a>
+          href="{% url notify_index %}"><i class="icon-bell-alt"></i>公告</a>
           <a class="blog-nav-item {% ifequal nav 'upfiles' %}active{% endifequal %}"
           href="{% url files_index %}"><i class="icon-download-alt"></i>资料下载</a>
           <a class="blog-nav-item {% ifequal nav 'album' %}active{% endifequal %}"

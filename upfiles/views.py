@@ -13,7 +13,6 @@ befor_range_num = 4
 def index(request):
     file_list = UpFile.objects.all()
     paginator = Paginator(file_list, COUNT_PER_PAGE)
-    pages_count = paginator.num_pages
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:

@@ -34,6 +34,7 @@ class Image(models.Model):
 
 class Album(models.Model):
     title = models.CharField(max_length=60)
+    description = models.TextField(blank=True)
     image = models.ManyToManyField(Image)
     def __unicode__(self):
         return self.title

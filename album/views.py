@@ -11,7 +11,7 @@ def show_contents(request,album_id):
     n_album = Album.objects.get(id=album_id)
     n_album.views_amount += 1
     n_album.save()
-    i_photo = Photo.objects.filter(belong=album_id)
+    i_photo = Image.objects.filter(belong=album_id)
     return render_to_response('show_albums.html',{'photo_list': i_photo,'intro': n_album.intro})
 
 def show_albums(request):

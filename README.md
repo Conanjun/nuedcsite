@@ -6,3 +6,4 @@
 	woonchao
 	unicorn78
 	Conan
+	Sinbad

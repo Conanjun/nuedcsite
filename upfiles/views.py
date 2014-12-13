@@ -6,9 +6,8 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from upfiles.models import *
 import os
 
-COUNT_PER_PAGE = 5
-after_range_num = 5
-befor_range_num = 4
+COUNT_PER_PAGE = 4
+range_len = 5
 
 def index(request):
     file_list = UpFile.objects.all()
@@ -20,9 +19,15 @@ def index(request):
     try:
         this_page = paginator.page(page)
     except (EmptyPage, InvalidPage):
-        this_page = paginator.page(paginator.num_pages)
-    if page >= after_range_num:
-        page_range = paginator.page_range[page-after_range_num:page+befor_range_num]     
+        if page == 0:
+            this_page = paginator.page(1)
+        else:
+            this_page = paginator.page(paginator.num_pages)
+    if page > range_len:
+        page_range = paginator.page_range[page-1:page+range_len-1]
     else:
-        page_range = paginator.page_range[0:int(page)+befor_range_num]
+        page_range = paginator.page_range[0:range_len]
     return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range})
+
+def count(request):
+    a=1

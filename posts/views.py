@@ -46,7 +46,7 @@ def notifies_index(request):
     try:
         this_page = paginator.page(page)
     except (EmptyPage, InvalidPage):
-        this_page = paginator.page(paginator.num_pages)
+        this_page = paginator.page(1)
     if page >= after_range_num:
         page_range = paginator.page_range[page-after_range_num:page+before_range_num]
     else:

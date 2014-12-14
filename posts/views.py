@@ -33,7 +33,12 @@ def news_index(request):
     return render_to_response('news_list.html',{"nav":"news","news_list":news_list,"length":page_range})
 
 def show_article(request):
-    return render_to_response('news_content.html',{"nav":"news"})
+    Id = request.GET.get('id')
+    item = NewsPost.objects.get(id=Id)
+    item.rating += 1
+    item.save()
+    return render_to_response('news_content.html',{"nav":"news", "title":item.title, "content":item.content,
+                                                   "uptime":item.uptime,"author":item.author,})
 
 def notifies_index(request):
     notify_list = NotifyPost.objects.all()

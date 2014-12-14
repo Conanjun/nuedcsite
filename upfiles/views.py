@@ -10,9 +10,11 @@ import os
 
 COUNT_PER_PAGE = 1
 range_len = 3
+
 @csrf_protect
 def index(request):
     file_list = UpFile.objects.all()
+    side_list = UpFile.objects.order_by("-created")[0:12]
     paginator = Paginator(file_list, COUNT_PER_PAGE)
     try:
         page = int(request.GET.get('page', '1'))
@@ -29,7 +31,9 @@ def index(request):
         page_range = paginator.page_range[page-range_len:page]
     else:
         page_range = paginator.page_range[0:range_len]
-    return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range},context_instance=RequestContext(request))
+    return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length": page_range,
+                               "side_list": side_list}, context_instance=RequestContext(request))
+
 
 def download(request):
     if request.method == 'POST' and request.POST.has_key('btn'):

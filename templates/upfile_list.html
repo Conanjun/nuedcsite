@@ -24,7 +24,14 @@
                     </div>
 
                     <div style="float: right">
-                        <div style="float:right"><p>{{ ls.created }} times:{{ ls.rating }}</p></div>
+                        <div style="float:right">
+                            <p>
+                            <h6><span class="label label-primary">{{ ls.created }}</span>
+                            <!--<span class="label label-success">Author</span>-->
+                            <span class="label label-danger">{{ls.rating}}</span></h6>
+                            <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
+                            </p>
+                        </div>
                     </div>
    		        </div>
    		    </div>
@@ -38,6 +45,23 @@
             {% endfor %}
             <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
         </ul>
+    </div>
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="/media/{{ ls.upfile.name }}">{{ ls.created|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
     </div>
 
 {% endblock %}

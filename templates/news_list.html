@@ -21,7 +21,7 @@
         <div class="blog-post">
             <div class="list-group">
                 {% for news in news_list %}
-                    <a href="{% url show_article %}" class="list-group-item">
+                    <a href="{% url show_article %}?id={{ news.id }}" class="list-group-item">
                         <h4 class="list-group-item-heading">{{ news.title }}</h4>
                         <p>
                             <h6><span class="label label-primary">{{ news.uptime }}</span>

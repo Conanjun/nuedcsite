@@ -18,8 +18,9 @@
 		        <p>{{ ls.descript }}</p>
                 <div>
                     <div style="float: left">
-   		                <form action="/media/{{ls.upfile.name}}" method="get" target="_blank">
-                            <button type="submit">下载</button>
+   		                <form action={% url download %} method="post" target="_blank">
+                            {% csrf_token %}
+                            <button type="submit" name="btn" value="{{ ls.id }}">下载</button>
                         </form>
                     </div>
 

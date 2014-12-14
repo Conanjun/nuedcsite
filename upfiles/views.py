@@ -3,12 +3,14 @@ from django.shortcuts import render_to_response
 from django.core.servers.basehttp import FileWrapper
 from django.http import HttpResponse
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
 from upfiles.models import *
 import os
 
 COUNT_PER_PAGE = 4
 range_len = 5
-
+@csrf_protect
 def index(request):
     file_list = UpFile.objects.all()
     paginator = Paginator(file_list, COUNT_PER_PAGE)
@@ -27,7 +29,22 @@ def index(request):
         page_range = paginator.page_range[page-1:page+range_len-1]
     else:
         page_range = paginator.page_range[0:range_len]
-    return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range})
+    return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range},context_instance=RequestContext(request))
 
-def count(request):
-    a=1
+def download(request):
+    if request.method == 'POST':
+        if request.POST.has_key('btn'):
+            Id = request.POST.__getitem__('btn')
+            item = UpFile.objects.get(id=Id)
+            filename = item.upfile.name
+            src = './media/'+filename
+            tem = filename.split('/')
+            filename = tem[1]
+            wrapper = FileWrapper(file(src))
+            response = HttpResponse(wrapper, content_type='text/plain')
+            response['Content-Length'] = os.path.getsize(src)
+            response['Content-Encoding'] = 'utf-8'
+            response['Content-Disposition'] = 'attachment;filename=%s' % filename
+            item.rating += 1
+            item.save()
+            return response

@@ -32,19 +32,17 @@ def index(request):
     return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range},context_instance=RequestContext(request))
 
 def download(request):
-    if request.method == 'POST':
-        if request.POST.has_key('btn'):
-            Id = request.POST.__getitem__('btn')
-            item = UpFile.objects.get(id=Id)
-            filename = item.upfile.name
-            src = './media/'+filename
-            tem = filename.split('/')
-            filename = tem[1]
-            wrapper = FileWrapper(file(src))
-            response = HttpResponse(wrapper, content_type='text/plain')
-            response['Content-Length'] = os.path.getsize(src)
-            response['Content-Encoding'] = 'utf-8'
-            response['Content-Disposition'] = 'attachment;filename=%s' % filename
-            item.rating += 1
-            item.save()
-            return response
+    if request.method == 'POST' and request.POST.has_key('btn'):
+        Id = request.POST.__getitem__('btn')
+        item = UpFile.objects.get(id=Id)
+        item.rating += 1
+        item.save()
+        src = request.GET.get('add').encode('utf-8')
+        tem=src.split('/')
+        filename=tem[3]
+        wrapper = FileWrapper(file(src))
+        response = HttpResponse(wrapper, content_type='text/plain')
+        response['Content-Length'] = os.path.getsize(src)
+        response['Content-Encoding'] = 'utf-8'
+        response['Content-Disposition'] = 'attachment;filename=%s' % filename
+        return response

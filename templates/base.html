@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="#">
+
+    <title>电子科技大学电子设计竞赛</title>
+    <!--<link href="/static/css/bootstrap.css" rel="stylesheet">-->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/blog.css" rel="stylesheet">
+    <script src="/static/js/ie-emulation-modes-warning.js"></script>
+    <link href="/static/css/font-awesome.min.css" rel="stylesheet" >
+      {% block scripts %}
+      {% endblock %}
+  </head>
+
+  <body>
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item {% ifequal nav 'home' %}active{% endifequal %}"
+          href="/"><i class="icon-home"></i>主页</a>
+          <a class="blog-nav-item {% ifequal nav 'news' %}active{% endifequal %}"
+          href="{% url news_index %}"><i class="icon-comments-alt"></i>新闻</a>
+          <a class="blog-nav-item {% ifequal nav 'notify' %}active{% endifequal %}"
+          href="{% url notify_index %}"><i class="icon-bell-alt"></i>公告</a>
+          <a class="blog-nav-item {% ifequal nav 'upfiles' %}active{% endifequal %}"
+          href="{% url files_index %}"><i class="icon-download-alt"></i>资料下载</a>
+          <a class="blog-nav-item {% ifequal nav 'album' %}active{% endifequal %}"
+          href="{% url album_index %}"><i class="icon-picture"></i>相册</a>
+        </nav>
+      </div>
+    </div>
+
+ <div class="container">
+
+        {% block header %}
+        
+        {% endblock %}
+
+      <div class="row">
+
+        {% block content %}
+
+        {% endblock %}
+        
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        
+        {% block side %}
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>相关</h4>
+            <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+          </div>
+          <div class="sidebar-module">
+            <h4>查找旧闻</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">11/2014</a></li>
+              <li><a href="#">10/2014</a></li>
+              <li><a href="#">9/014</a></li>
+              <li><a href="#">8/2014</a></li>
+              <li><a href="#">7/2014</a></li>
+              <li><a href="#">6/2014</a></li>
+              <li><a href="#">5/2014</a></li>
+              <li><a href="#">4/2014</a></li>
+              <li><a href="#">3/2014</a></li>
+              <li><a href="#">2/2014</a></li>
+              <li><a href="#">1/2014</a></li>
+              <li><a href="#">12/2013</a></li>
+            </ol>
+          </div>
+        {% endblock %}
+
+          <div class="sidebar-module">
+            <h4>联系我们</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">新浪微博</a></li>
+              <li><a href="#">人人</a></li>
+              <li><a href="#">微信</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <div class="blog-footer"> <!--.footer-->
+       <div> 
+	      <a href="#" target="_blank" style="border-width:0">常见问题</a>
+	      <a href="#" target="_blank">联系方式</a>
+	      <a href="#" target="_blank">加入我们</a>
+	      <a href="#" target="_blank">关于电子设计</a>
+          <a href="#">Back to top</a>
+      </p>
+      </div>
+      <div>
+	     <span>© Copyright UESTC</span>
+	     <a href="#" target="_blank">ICP号</a>
+	     <span>网络备案号</span>
+      </div>
+    </div>             <!--/.footer-->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/static/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

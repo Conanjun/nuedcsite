@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+
+{% block scripts %}
+{% endblock %}
+
+{% block header %}
+
+  <div class="blog-header">
+    <h3 class="blog-title">照片列表</h3>
+    <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <div class="panel panel-primary">
+               	<div class="panel-heading">
+                    {{album.title}}
+                    <p style="float:right;">X</p>
+                    <a href="/album/" style="z-index:1;position:absolute;right:0;width:4em;height:2em;"></a>
+                </div>
+                <div class="panel-body">
+                    <img style="float:left" alt="相册封面" class="img-thumbnail" src="/media/{{album.cover}}" align="center" onload="DrawImage(this,200,200)" width="200" height="112">
+                    <div style="position:relative;color:gray;">
+                        {{album.description}}
+                    </div>
+                    <hr style="clear:both;"/>
+                    <div style="clear:both;">
+                    {% for i in album.image.all %}
+                        <a href="/album/images/{{album.id}}n{{i.id}}/">
+                            <img title="{{i.image.name}}" class="img-thumbnail" src="/media/{{i.image.name}}" align="center" onload="DrawImage(this,200,200)" width="190" height="112">
+                        </a>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="panel-footer" style="text-align:right;">
+                    <span class="label label-danger">{{album.rating}}</span>
+                    <span class="label label-primary">{{album.date}}</span>
+                    <span class="label label-success">发布人</span>
+                </div>
+            </div>
+        </div><!-- /.blog-post -->
+          
+    </div><!-- /.blog-main -->
+
+{% endblock %}

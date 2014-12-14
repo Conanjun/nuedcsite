@@ -9,7 +9,6 @@
 
 {% block content %}
 
-
     <div class="col-sm-5 col-lg-8">
         {% for ls in this_page.object_list %}
         <div class="panel panel-primary">
@@ -18,14 +17,14 @@
 		        <p>{{ ls.descript }}</p>
                 <div>
                     <div style="float: left">
-   		                <form action={% url download %} method="post" target="_blank">
+   		                <form action="download?add=./media/{{ ls.upfile.name }}" method="post" target="_blank">
                             {% csrf_token %}
-                            <button type="submit" name="btn" value="{{ ls.id }}">下载</button>
+                            <button type="submit"  name="btn" value="{{ ls.id }}">下载</button>
                         </form>
                     </div>
 
                     <div style="float: right">
-                        <div style="float:right"><p>{{ ls.created }}</p></div>
+                        <div style="float:right"><p>{{ ls.created }} times:{{ ls.rating }}</p></div>
                     </div>
    		        </div>
    		    </div>

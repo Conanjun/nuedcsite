@@ -8,8 +8,8 @@ from django.views.decorators.csrf import csrf_protect
 from upfiles.models import *
 import os
 
-COUNT_PER_PAGE = 4
-range_len = 5
+COUNT_PER_PAGE = 1
+range_len = 3
 @csrf_protect
 def index(request):
     file_list = UpFile.objects.all()
@@ -26,7 +26,7 @@ def index(request):
         else:
             this_page = paginator.page(paginator.num_pages)
     if page > range_len:
-        page_range = paginator.page_range[page-1:page+range_len-1]
+        page_range = paginator.page_range[page-range_len:page]
     else:
         page_range = paginator.page_range[0:range_len]
     return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length":page_range},context_instance=RequestContext(request))

@@ -8,9 +8,8 @@ from django.views.decorators.csrf import csrf_protect
 from upfiles.models import *
 import os
 
-COUNT_PER_PAGE = 1
+COUNT_PER_PAGE = 2
 range_len = 3
-
 @csrf_protect
 def index(request):
     file_list = UpFile.objects.all()
@@ -33,7 +32,17 @@ def index(request):
         page_range = paginator.page_range[0:range_len]
     return render_to_response('upfile_list.html',{"nav":"upfiles","this_page": this_page,"length": page_range,
                                "side_list": side_list}, context_instance=RequestContext(request))
-
+@csrf_protect
+def show_content(request):
+    Id = request.GET.get('id')
+    item = UpFile.objects.get(id=Id)
+    side_list = UpFile.objects.order_by("-created")[0:12]
+    num = int(Id)%COUNT_PER_PAGE
+    page = int(Id)/COUNT_PER_PAGE
+    if num!=0:
+        page +=1
+    return render_to_response('upfile_content.html',{"nav":"upfiles",'src':item.upfile.name,"id":item.id,"title":item.title,"descript":item.descript,
+                                                   "created":item.created,"rating":item.rating,'page':page,"side_list": side_list}, context_instance=RequestContext(request))
 
 def download(request):
     if request.method == 'POST' and request.POST.has_key('btn'):

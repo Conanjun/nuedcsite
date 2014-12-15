@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block header %}
+
+    <div class="blog-header">
+        <h1 class="blog-title">资料下载</h1>
+        <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
+    </div>
+  
+{% endblock %}
+
+{% block content %}
+  
+          <div class="col-sm-8 blog-main">
+
+          <div class="blog-post">
+            <!--<h2 class="blog-post-title">资料下载</h2>-->
+            <div class="panel panel-primary">
+            <div class="panel-heading">{{ title }}</div>
+            <div class="panel-body">
+                <p>{{ descript }}</p>
+                <div style="float: left">
+   		            <form action="download?add=./media/{{ src }}" method="post" target="_blank">
+                        {% csrf_token %}
+                        <button type="submit"  name="btn" value="{{ id }}">下载</button>
+                    </form>
+                </div>
+            </div>
+            <div class="panel-footer">
+            <span class="label label-primary">{{ created }}</span>
+            <span class="label label-success">{{ rating }}</span>
+            </div>
+            </div>
+          </div><!-- /.blog-post -->
+
+            <nav>
+            <ul class="pager">
+                <li class="previous"><a href="{% url files_index %}?page={{ page }}">返回列表</a></li>
+            </ul>
+            </nav>
+
+          </div><!-- /.blog-main -->
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="upfile_content?id={{ls.id }}">{{ ls.created|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
+
+{% endblock %}

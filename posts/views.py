@@ -38,7 +38,7 @@ def show_article(request):
     item.rating += 1
     item.save()
     return render_to_response('news_content.html',{"nav":"news", "title":item.title, "content":item.content,
-                                                   "uptime":item.uptime,"author":item.author,})
+                                                   "uptime":item.uptime,"author":item.author, "rating":item.rating})
 
 def notifies_index(request):
     notify_list = NotifyPost.objects.all()

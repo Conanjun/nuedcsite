@@ -14,15 +14,8 @@
         <div class="panel panel-primary">
 		    <div class="panel-heading">{{ ls.title }}</div>
 			<div class="panel-body">
-		        <p>{{ ls.descript }}</p>
+                <a href="upfile_content?id={{ls.id }}">详细内容</a>
                 <div>
-                    <div style="float: left">
-   		                <form action="download?add=./media/{{ ls.upfile.name }}" method="post" target="_blank">
-                            {% csrf_token %}
-                            <button type="submit"  name="btn" value="{{ ls.id }}">下载</button>
-                        </form>
-                    </div>
-
                     <div style="float: right">
                         <div style="float:right">
                             <p>
@@ -59,7 +52,7 @@
         <h4>查找旧闻</h4>
         <ol class="list-unstyled">
             {% for ls in side_list %}
-                <li><a href="/media/{{ ls.upfile.name }}">{{ ls.created|date:"F j, Y" }}</a></li>
+                <li><a href="upfile_content?id={{ls.id }}">{{ ls.created|date:"F j, Y" }}</a></li>
             {% endfor %}
         </ol>
     </div>

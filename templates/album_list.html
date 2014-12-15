@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block scripts %}
+
+{% endblock %}
+
+{% block header %}
+
+  <div class="blog-header">
+    <h3 class="blog-title">相册列表</h3>
+    <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <div class="list-group">
+                {% for album in album_list %}
+                    <div class="panel panel-primary">
+                        	<a href="/album/{{album.id}}/" style="z-index:1;position:absolute;width:32em;height:3em;"></a>
+                        	<div class="panel-heading">{{album.title}}</div>
+                        <div class="panel-body">
+                            <a href="/album/{{album.id}}/" style="float:left;">
+                                <img alt="相册封面" class="img-thumbnail" src="/media/{{album.cover}}" align="center" onload="DrawImage(this,200,200)" width="200" height="112">
+                            </a><!--ImgD,width_s,height_s-->
+                            <div style="position:relative;color:gray;">
+                                {{album.description}}
+                                <br />
+                            </div>
+                        </div>
+                        <div class="panel-footer" style="text-align:right;">
+                            <span class="label label-danger">{{album.rating}}</span>
+                            <span class="label label-primary">{{album.date}}</span>
+                            <span class="label label-success">发布人</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!-- /.blog-post -->
+          
+			<nav ><!--nav-->
+			  <ul class="pagination">
+			    <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
+            {% for i in length %}
+            <li class="current"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
+			  </ul>
+			</nav>  
+			<!--/nav-->
+    </div><!-- /.blog-main -->
+
+{% endblock %}

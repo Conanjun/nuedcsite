@@ -71,6 +71,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    ("fonts", os.path.join(STATIC_ROOT,'fonts')),
     ("images", os.path.join(STATIC_ROOT,'images')),
     ("css", os.path.join(STATIC_ROOT,'css')),
     ("js", os.path.join(STATIC_ROOT,'js')),

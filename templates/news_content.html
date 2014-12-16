@@ -36,14 +36,31 @@
 
             <nav>
             <ul class="pager">
-                <li class="previous"><a href="#">返回列表</a></li> 
+                <li class="previous"><a href="{% url news_index %}?page={{ page }}">返回列表</a></li>
             </ul>
             <ul class="pager">
-                <li class="previous"><a href="#">&laquo;上一篇</a></li>
-                <li class="next"><a href="#">下一篇&raquo;</a></li>
+                <li class="previous"><a href="{% url show_article %}?id={{ id1 }}">&laquo;上一篇</a></li>
+                <li class="next"><a href="{% url show_article %}?id={{ id2 }}">下一篇&raquo;</a></li>
               </ul>
             </nav>
 
         </div><!-- /.blog-main -->
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
 
 {% endblock %}

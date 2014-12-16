@@ -18,22 +18,28 @@
 
     <div class="col-sm-8 blog-main">
 
-        <div class="blog-post">
-            <div class="list-group">
-                {% for news in news_list %}
-                    <a href="{% url show_article %}?id={{ news.id }}" class="list-group-item">
-                        <h4 class="list-group-item-heading">{{ news.title }}</h4>
-                        <p>
-                            <h6><span class="label label-primary">{{ news.uptime }}</span>
+            {% for ls in news_list %}
+            <div class="panel panel-primary">
+		    <div class="panel-heading">{{ ls.title }}</div>
+			<div class="panel-body">
+                <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
+                <div>
+                    <div style="float: right">
+                        <div style="float:right">
+                            <p>
+                            <h6><span class="label label-primary">{{ ls.uptime }}</span>
                             <!--<span class="label label-success">Author</span>-->
-                            <span class="label label-danger">{{news.rating}}</span></h6>
+                            <span class="label label-danger">{{ls.rating}}</span></h6>
                             <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
-                        </p>
-                    </a>
-                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+   		        </div>
+   		    </div>
             </div>
-        </div><!-- /.blog-post -->
-          
+            {% endfor %}
+
+
 			<nav ><!--nav-->
 			  <ul class="pagination">
 			    <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
@@ -45,5 +51,22 @@
 			</nav>  
 			<!--/nav-->
     </div><!-- /.blog-main -->
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
 
 {% endblock %}

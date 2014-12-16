@@ -35,13 +35,21 @@ def index(request):
 @csrf_protect
 def show_content(request):
     Id = request.GET.get('id')
+    ID=int(Id)
     item = UpFile.objects.get(id=Id)
+    max = UpFile.objects.count()
     side_list = UpFile.objects.order_by("-created")[0:12]
-    num = int(Id)%COUNT_PER_PAGE
-    page = int(Id)/COUNT_PER_PAGE
+    num = ID%COUNT_PER_PAGE
+    page = ID/COUNT_PER_PAGE
     if num!=0:
         page +=1
-    return render_to_response('upfile_content.html',{"nav":"upfiles",'src':item.upfile.name,"id":item.id,"title":item.title,"descript":item.descript,
+    id1=ID-1
+    id2=ID+1
+    if id1<1:
+        id1=1
+    if id2>max:
+        id2=max
+    return render_to_response('upfile_content.html',{"nav":"upfiles",'src':item.upfile.name,"id":ID,"id1":id1,"id2":id2,"title":item.title,"descript":item.descript,
                                                    "created":item.created,"rating":item.rating,'page':page,"side_list": side_list}, context_instance=RequestContext(request))
 
 def download(request):

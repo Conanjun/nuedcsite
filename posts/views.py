@@ -54,7 +54,7 @@ def show_article(request):
     if id2>max:
         id2=max
     item.rating +=1
-    item.save
+    item.save()
     return render_to_response('news_content.html',{"nav":"news", "title":item.title,"id1":id1,"id2":id2,"content":item.content,
                                                    "uptime":item.uptime,"author":item.author, "rating":item.rating,
                                                    'page':page,"side_list": side_list})
@@ -83,4 +83,23 @@ def notifies_index(request):
                                                   "side_list": side_list})
 
 def show_notify(request):
-    return render_to_response('news_content.html',{"nav":"news"})
+    Id = request.GET.get('id')
+    ID=int(Id)
+    item = NotifyPost.objects.get(id=Id)
+    max = NotifyPost.objects.count()
+    side_list = NotifyPost.objects.order_by("-uptime")[0:12]
+    num = ID%COUNT_PER_PAGE
+    page = ID/COUNT_PER_PAGE
+    if num!=0:
+        page +=1
+    id1=ID-1
+    id2=ID+1
+    if id1<1:
+        id1=1
+    if id2>max:
+        id2=max
+    item.rating +=1
+    item.save()
+    return render_to_response('notify_content.html',{"nav":"notify", "title":item.title,"id1":id1,"id2":id2,"content":item.content,
+                                                   "uptime":item.uptime,"author":item.author, "rating":item.rating,
+                                                   'page':page,"side_list": side_list})

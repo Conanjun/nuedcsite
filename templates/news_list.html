@@ -17,28 +17,29 @@
 {% block content %}
 
     <div class="col-sm-8 blog-main">
-
-            {% for ls in news_list %}
-            <div class="panel panel-primary">
-		    <div class="panel-heading">{{ ls.title }}</div>
-			<div class="panel-body">
-                <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
-                <div>
-                    <div style="float: right">
-                        <div style="float:right">
+            <div class="blog-post">
+            <div class="list-group">
+                {% for ls in news_list %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">{{ ls.title }}</a>
+                                <span class="label label-warning" style="float:right">
+                                <i class="icon-eye-open"></i>{{ ls.rating }}</span></h3>
+                        </div>
+                        <div class="panel-body">
                             <p>
-                            <h6><span class="label label-primary">{{ ls.uptime }}</span>
-                            <!--<span class="label label-success">Author</span>-->
-                            <span class="label label-danger">{{ls.rating}}</span></h6>
-                            <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
-                            </p>
+                            {% autoescape off %}
+                            <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
+                            {% endautoescape %}</p>
+                        </div>
+                        <div class="panel-footer">
+                            <p><span class="label label-success">{{ ls.uptime }}</span></p>
                         </div>
                     </div>
-   		        </div>
-   		    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-
+        </div>
 
 			<nav ><!--nav-->
 			  <ul class="pagination">

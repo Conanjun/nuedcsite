@@ -53,11 +53,12 @@ def show_article(request):
         id1=1
     if id2>max:
         id2=max
-    item.rating +=1
-    item.save
+    item.rating += 1
+    #item.rating = (item.rating+1) / 2 * 2
+    item.save()
     return render_to_response('news_content.html',{"nav":"news", "title":item.title,"id1":id1,"id2":id2,"content":item.content,
                                                    "uptime":item.uptime,"author":item.author, "rating":item.rating,
-                                                   'page':page,"side_list": side_list})
+                                                   'page':page,"side_list": side_list}, context_instance=RequestContext(request))
 
 def notifies_index(request):
     notify_list = NotifyPost.objects.all()

@@ -1,104 +1,45 @@
 # Create your views here.
 # -*- coding: UTF-8 -*-
 from django.shortcuts import render_to_response
+from django.shortcuts import RequestContext  
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.core.context_processors import csrf
+from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+
 from album.models import *
-from PIL import Image
-import datetime
-import os
 
-def show_contents(request,album_id):
-    n_album = Album.objects.get(id=album_id)
-    n_album.views_amount += 1
-    n_album.save()
-    i_photo = Photo.objects.filter(belong=album_id)
-    return render_to_response('show_albums.html',{'photo_list': i_photo,'intro': n_album.intro})
+COUNT_PER_PAGE = 5
+after_range_num = 5
+before_range_num = 4
 
-def show_albums(request):
-    album_list =  Album.objects.all()
-    return render_to_response('show_albums.html',{'album_list': album_list})
+def album_index(request):
+    album_list = Album.objects.all()
+    paginator = Paginator(album_list, COUNT_PER_PAGE)
+    pages_count = paginator.num_pages
+    try:
+        page = int(request.GET.get('page', '1'))
+    except ValueError:
+        page = 1
+    try:
+        this_page = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        this_page = paginator.page(paginator.num_pages)
+    if page >= after_range_num:
+        page_range = paginator.page_range[page-after_range_num:page+before_range_num]
+    else:
+        page_range = paginator.page_range[0:int(page)+before_range_num]
+    return render_to_response('album_list.html',{"nav":"album","album_list":album_list,"length":page_range})
 
-def upload_intro(request):
-    if request.method == 'POST':
-        if request.POST['url']:
-            photo = Photo.objects.get(full_url=request.POST['url'])
-            photo.intro = request.POST['photo_intro']
-            photo.save()
-    album_list =  Album.objects.all()
-    return render_to_response('upload.html',{'album_list': album_list,})
+def album_content(request,album_id):
+    this_album = Album.objects.get(id=album_id)
+    this_album.rating += 1
+    this_album.save()
+    return render_to_response('album_content.html',{"album":this_album,})
 
-def upload(request):
-    album_list =  Album.objects.all()
-    errors = []
-    photo_url = ''
-    if request.method == 'POST':
-        errors = ifError(request,album_list)
-        if not errors:
-            if request.POST['album_name']=='new':
-                new_album(request)
-                album_list =  Album.objects.all()
-            try:
-                img = Image.open(request.FILES['picfile'])
-                new_photo = newPhoto(request.POST['title'])
-                save_img(img,new_photo.micro_url[1:],new_photo.full_url[1:])
-                photo_url = new_photo.full_url
-            except Exception,e:
-                errors.append(e)
-    return render_to_response('upload.html',{'errors': errors,'album_list': album_list,'url': photo_url,})
-
-def ifError(request,album_list):
-    errors = []
-    if "Choose a album" == request.POST['album_name']:
-        errors.append('请选择或创建一个相册')
-    if request.POST['album_name']=='new':
-        if not request.POST['title']:
-            errors.append('请输入相册名')
-        for i in album_list:
-            if i.title == request.POST['title']:
-                errors.append('同名相册已存在')
-    return errors
-
-def new_album(request):
-    new_album = Album()
-    new_album.title = request.POST['title']
-    if request.POST['album_intro'] and request.POST['album_name']=='new':
-        new_album.intro = request.POST['album_intro']
-    new_album.up_date = datetime.datetime.now()
-    new_album.amount = 0
-    new_album.views_amount = 0
-    new_album.author = "Admin"
-    new_album.save()
-
-def newPhoto(title):
-    n_album = Album.objects.get(title=title)
-    n_album.cover_url = "/static/images/micro/%sn%s.jpg"%(n_album.id,str(n_album.amount))
-    n_album.up_date = datetime.datetime.now()
-    n_album.amount+=1
-    n_album.save()
-
-    new_photo = Photo()
-    new_photo.micro_url = n_album.cover_url
-    new_photo.full_url = "/static/images/full/%sn%s.jpg"%(n_album.id,str(n_album.amount-1))
-    #if request.POST['photo_intro']:
-        #new_photo.intro = request.POST['photo_intro']
-    new_photo.click_num = 0
-    new_photo.belong = n_album.id
-    new_photo.up_date = datetime.datetime.now()
-    new_photo.save()
-    return new_photo
-
-def save_img(img,micro_url,full_url):
-    SITE_ROOT=os.path.join(os.path.abspath(os.path.dirname(__file__)),'..')
-    img.thumbnail((4096,4096),Image.ANTIALIAS)
-    img.save(os.path.join(SITE_ROOT,full_url),'jpeg')
-
-    n = img.size
-    if n[0]>n[1]:
-        n1 = int((n[0]-n[1])/2)
-        img = img.crop((n1,0,n1+n[1],n[1]))
-    elif n[1]>n[0]:
-        n1 = int((n[1]-n[0])/2)
-        img = img.crop((0,n1,n[0],n1+n[0]))
-
-    img.thumbnail((128,128),Image.ANTIALIAS)
-    img.save(os.path.join(SITE_ROOT,micro_url),'jpeg')
+def image_content(request,album_id,image_id):
+    this_image = Image.objects.get(id=image_id)
+    this_image.rating += 1
+    this_image.save()
+    return render_to_response('image_content.html',{"image":this_image,"album":album_id,})

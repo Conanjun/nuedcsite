@@ -9,27 +9,30 @@
 
 {% block content %}
 
-
     <div class="col-sm-5 col-lg-8">
-        {% for ls in this_page.object_list %}
-        <div class="panel panel-primary">
-		    <div class="panel-heading">{{ ls.title }}</div>
-			<div class="panel-body">
-		        <p>{{ ls.descript }}</p>
-                <div>
-                    <div style="float: left">
-   		                <form action="/media/{{ls.upfile.name}}" method="get" target="_blank">
-                            <button type="submit">下载</button>
-                        </form>
+        <div class="blog-post">
+            <div class="list-group">
+                {% for ls in this_page.object_list %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">{{ ls.title }}</a>
+                                <span class="label label-warning" style="float:right">
+                                <i class="icon-eye-open"></i>{{ ls.rating }}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                            {% autoescape off %}
+                            <a href="upfile_content?id={{ls.id }}">详细内容</a>
+                            {% endautoescape %}</p>
+                        </div>
+                        <div class="panel-footer">
+                            <p><span class="label label-success">{{ ls.created }}</span></p>
+                        </div>
                     </div>
-
-                    <div style="float: right">
-                        <div style="float:right"><p>{{ ls.created }}</p></div>
-                    </div>
-   		        </div>
-   		    </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
 
         <ul class="pagination">
             <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
@@ -38,6 +41,23 @@
             {% endfor %}
             <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
         </ul>
+    </div>
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="upfile_content?id={{ls.id }}">{{ ls.created|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
     </div>
 
 {% endblock %}

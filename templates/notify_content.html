@@ -7,7 +7,7 @@
 {% block header %}
 
     <div class="blog-header">
-        <h1 class="blog-title">来搞个大新闻</h1>
+        <h1 class="blog-title">通知公告</h1>
         <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
     </div>
   
@@ -18,14 +18,11 @@
           <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <!--<h2 class="blog-post-title">新闻</h2>-->
+            <!--<h2 class="blog-post-title">公告</h2>-->
             <div class="panel panel-primary">
             <div class="panel-heading">{{ title }}</div>
             <div class="panel-body">{{ content|safe }}
             </div>
-            <ul class="list-group">
-              <li class="list-group-item"><img src="1.jpg"></li><!--存图片-->
-            </ul>
             <div class="panel-footer">
             <span class="label label-primary">{{ uptime }}</span>
             <span class="label label-success">{{ author }}</span>
@@ -36,11 +33,11 @@
 
             <nav>
             <ul class="pager">
-                <li class="previous"><a href="{% url news_index %}?page={{ page }}">返回列表</a></li>
+                <li class="previous"><a href="{% url notify_index %}?page={{ page }}">返回列表</a></li>
             </ul>
             <ul class="pager">
-                <li class="previous"><a href="{% url show_article %}?id={{ id1 }}">&laquo;上一篇</a></li>
-                <li class="next"><a href="{% url show_article %}?id={{ id2 }}">下一篇&raquo;</a></li>
+                <li class="previous"><a href="{% url show_notify %}?id={{ id1 }}">&laquo;上一篇</a></li>
+                <li class="next"><a href="{% url show_notify %}?id={{ id2 }}">下一篇&raquo;</a></li>
               </ul>
             </nav>
 
@@ -58,7 +55,7 @@
         <h4>查找旧闻</h4>
         <ol class="list-unstyled">
             {% for ls in side_list %}
-                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+                <li><a href="{% url show_notify %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
             {% endfor %}
         </ol>
     </div>

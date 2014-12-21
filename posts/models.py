@@ -9,6 +9,7 @@ class NewsPost(models.Model):
     content = HTMLField()
     uptime = models.DateTimeField(auto_now=True)
     rating = models.IntegerField(default=0)
+    author = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.title
@@ -19,6 +20,7 @@ class NotifyPost(models.Model):
     content = HTMLField()
     uptime = models.DateTimeField(auto_now=True)
     rating = models.IntegerField(default=0)
+    author = models.CharField(max_length=50)
 
     def __unicode__(self):
         return self.title

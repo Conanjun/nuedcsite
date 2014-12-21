@@ -23,7 +23,7 @@
                         <div class="panel-body">
                             <p>
                             {% autoescape off %}
-                                {{ notify.content }}
+                                <a href="{% url show_notify %}?id={{notify.id }}">详细内容</a>
                             {% endautoescape %}</p>
                         </div>
                         <div class="panel-footer">
@@ -33,6 +33,33 @@
                 {% endfor %}
             </div>
         </div>
+        <nav ><!--nav-->
+			  <ul class="pagination">
+			    <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
+            {% for i in length %}
+            <li class="current"><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
+			  </ul>
+			</nav>
+			<!--/nav-->
+    </div>
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="{% url show_notify %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
     </div>
 
 {% endblock %}

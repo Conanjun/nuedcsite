@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block scripts %}
+{% endblock %}
+
+{% block header %}
+
+  <div class="blog-header">
+    <h3 class="blog-title">照片详情</h3>
+    <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <div class="panel panel-primary">
+               	<div class="panel-heading">
+                    {{image.image.name}}
+                    <p style="float:right;">X</p>
+                    <a href="/album/{{album}}/" style="z-index:1;position:absolute;right:0;width:4em;height:2em;"></a>
+                </div>
+                <div class="panel-body">
+                    <img alt="一张照片" class="img-thumbnail" src="/media/{{image.image.name}}" align="center" onload="DrawImage(this,200,200)" width="600">
+                </div>
+                <div class="panel-footer" style="text-align:right;">
+                    <span class="label label-danger">{{image.rating}}</span>
+                    <span class="label label-primary">{{image.created}}</span>
+                    <span class="label label-success">发布人</span>
+                </div>
+            </div>
+        </div><!-- /.blog-post -->
+          
+    </div><!-- /.blog-main -->
+
+{% endblock %}

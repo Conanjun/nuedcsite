@@ -17,23 +17,30 @@
 {% block content %}
 
     <div class="col-sm-8 blog-main">
-
-        <div class="blog-post">
+            <div class="blog-post">
             <div class="list-group">
-                {% for news in news_list %}
-                    <a href="{% url show_article %}" class="list-group-item">
-                        <h4 class="list-group-item-heading">{{ news.title }}</h4>
-                        <p>
-                            <h6><span class="label label-primary">{{ news.uptime }}</span>
-                            <!--<span class="label label-success">Author</span>-->
-                            <span class="label label-danger">{{news.rating}}</span></h6>
-                            <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
-                        </p>
-                    </a>
+                {% for ls in news_list %}
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">{{ ls.title }}</a>
+                                <span class="label label-warning" style="float:right">
+                                <i class="icon-eye-open"></i>{{ ls.rating }}</span></h3>
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                            {% autoescape off %}
+                            <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
+                            {% endautoescape %}</p>
+                        </div>
+                        <div class="panel-footer">
+                            <p><span class="label label-success">{{ ls.uptime }}</span></p>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
-        </div><!-- /.blog-post -->
-          
+        </div>
+
 			<nav ><!--nav-->
 			  <ul class="pagination">
 			    <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
@@ -45,5 +52,22 @@
 			</nav>  
 			<!--/nav-->
     </div><!-- /.blog-main -->
+
+{% endblock %}
+
+{% block side %}
+
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>相关</h4>
+        <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>查找旧闻</h4>
+        <ol class="list-unstyled">
+            {% for ls in side_list %}
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+            {% endfor %}
+        </ol>
+    </div>
 
 {% endblock %}

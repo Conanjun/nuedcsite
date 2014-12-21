@@ -13,6 +13,9 @@ class Image(models.Model):
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
 
+    class Meta: 
+        ordering = ['-id']
+
     def __unicode__(self):
         return self.image.name
 
@@ -34,18 +37,33 @@ class Image(models.Model):
 
 class Album(models.Model):
     title = models.CharField(max_length=60)
+    description = models.TextField(blank=True)
     image = models.ManyToManyField(Image)
+    rating = models.IntegerField(default=0)
+
+    class Meta: 
+        ordering = ['-rating']
+
+    def cover(self):
+        cover = self.image.all()
+        return cover[0].image.name
+
+    def date(self):
+        cover = self.image.all()
+        return cover[0].created
+
     def __unicode__(self):
         return self.title
+
     def images(self):
-        lst = [x.image.name for x in self.image_set.all()]
-        lst = ["<a href='/media/%s'>%s</a>" % (x, x.split('/')[-1]) for x in lst]
+        lst = [x.image.name for x in self.image.all()]
+        lst = ["""<img border="0" src="/media/%s"  title="%s"  height="40" />""" % (x, x.split('/')[-1]) for x in lst]
         return join(lst, ', ')
     images.allow_tags = True
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ["title"]
+    list_display = ["title","images"]
 
 class ImageAdmin(admin.ModelAdmin):
     search_fields = ["title"]

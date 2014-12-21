@@ -7,7 +7,7 @@
 {% block header %}
 
     <div class="blog-header">
-        <h1 class="blog-title">来搞个大新闻</h1>
+        <h1 class="blog-title">资料下载</h1>
         <p class="lead blog-description">一所神奇大学，一项神奇比赛</p>
     </div>
   
@@ -18,33 +18,36 @@
           <div class="col-sm-8 blog-main">
 
           <div class="blog-post">
-            <!--<h2 class="blog-post-title">新闻</h2>-->
+            <!--<h2 class="blog-post-title">资料下载</h2>-->
             <div class="panel panel-primary">
             <div class="panel-heading">{{ title }}</div>
-            <div class="panel-body">{{ content|safe }}
+            <div class="panel-body">
+                <p>{{ descript }}</p>
+                <div style="float: left">
+   		            <form action="download?add=./media/{{ src }}" method="post" target="_blank">
+                        {% csrf_token %}
+                        <button type="submit"  name="btn" value="{{ id }}">下载</button>
+                    </form>
+                </div>
             </div>
-            <ul class="list-group">
-              <li class="list-group-item"><img src="1.jpg"></li><!--存图片-->
-            </ul>
             <div class="panel-footer">
-            <span class="label label-primary">{{ uptime }}</span>
-            <span class="label label-success">{{ author }}</span>
+            <span class="label label-primary">{{ created }}</span>
             <span class="label label-success">{{ rating }}</span>
             </div>
-          </div>
+            </div>
           </div><!-- /.blog-post -->
 
             <nav>
             <ul class="pager">
-                <li class="previous"><a href="{% url news_index %}?page={{ page }}">返回列表</a></li>
+                <li class="previous"><a href="{% url files_index %}?page={{ page }}">返回列表</a></li>
             </ul>
             <ul class="pager">
-                <li class="previous"><a href="{% url show_article %}?id={{ id1 }}">&laquo;上一篇</a></li>
-                <li class="next"><a href="{% url show_article %}?id={{ id2 }}">下一篇&raquo;</a></li>
-              </ul>
+                <li class="previous"><a href="upfile_content?id={{ id1 }}">&laquo;上一篇</a></li>
+                <li class="next"><a href="upfile_content?id={{ id2 }}">下一篇&raquo;</a></li>
+            </ul>
             </nav>
 
-        </div><!-- /.blog-main -->
+          </div><!-- /.blog-main -->
 
 {% endblock %}
 
@@ -58,7 +61,7 @@
         <h4>查找旧闻</h4>
         <ol class="list-unstyled">
             {% for ls in side_list %}
-                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+                <li><a href="upfile_content?id={{ls.id }}">{{ ls.created|date:"F j, Y" }}</a></li>
             {% endfor %}
         </ol>
     </div>

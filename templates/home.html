@@ -61,7 +61,7 @@
             </div>
             <div class="panel-body">
 
-            {% for ls in max_rating_news %}          
+            {% for ls in max_rating_news %}
 		    <div class="panel-heading">{{ ls.title }}</div>
 			<div class="panel-body">
                 <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
@@ -79,23 +79,20 @@
             </div>
             {% endfor %}
             </div>
-    </div>
 
-    <div class="col-sm-8 content-main">
-
-        <div class="panel panel-primary">
+    <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
                 <span>公告</span></h3>
             </div>
             <div class="panel-body">
 
-            {% for ls in max_rating_notify %}          
+            {% for ls in max_rating_notify %}
 		    <div class="panel-heading">{{ ls.title }}</div>
 			<div class="panel-body">
-                <a href="{% url show_notify %}">详细内容</a>
+                <a href="{% url show_notify %}?id={{ ls.id }}">详细内容</a>
                 <div>
-                    <div style="float: left">                        
+                    <div style="float: left">
                             <p>
                             <h6><span class="label label-primary">通知时间:  {{ ls.uptime }}</span>
                             <!--<span class="label label-success">Author</span>-->
@@ -111,16 +108,5 @@
     </div>
 
 
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title"><span>发布人</span>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <p><a href="#">通知标题</a></p>
-            </div>
-        </div>
-
-    
 
 {% endblock %}

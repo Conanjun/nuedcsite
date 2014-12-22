@@ -66,32 +66,6 @@
 			<div class="panel-body">
                 <a href="{% url show_article %}?id={{ls.id }}">详细内容</a>
                 <div>
-                    <div style="float: left">                        
-                            <p>
-                            <h6><span class="label label-primary">通知时间:  {{ ls.uptime }}</span>
-                            <!--<span class="label label-success">Author</span>-->
-                            <span class="label label-danger">{{ls.rating}}</span></h6>
-                            <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
-                            </p>
-                    </div>
-   		        </div>
-   		    </div>
-            </div>
-            {% endfor %}
-            </div>
-
-    <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                <span>公告</span></h3>
-            </div>
-            <div class="panel-body">
-
-            {% for ls in max_rating_notify %}
-		    <div class="panel-heading">{{ ls.title }}</div>
-			<div class="panel-body">
-                <a href="{% url show_notify %}?id={{ ls.id }}">详细内容</a>
-                <div>
                     <div style="float: left">
                             <p>
                             <h6><span class="label label-primary">通知时间:  {{ ls.uptime }}</span>
@@ -105,7 +79,33 @@
             </div>
             {% endfor %}
             </div>
-    </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                <span>公告</span></h3>
+            </div>
+            <div class="panel-body">
+
+            {% for ls in max_rating_notify %}
+            <div class="panel-heading">{{ ls.title }}</div>
+            <div class="panel-body">
+                <a href="{% url show_notify %}?id={{ ls.id }}">详细内容</a>
+                <div>
+                    <div style="float: left">
+                            <p>
+                            <h6><span class="label label-primary">通知时间:  {{ ls.uptime }}</span>
+                            <!--<span class="label label-success">Author</span>-->
+                            <span class="label label-danger">{{ls.rating}}</span></h6>
+                            <!--<p class="list-group-item-text small">把我批判一番，图样图森破！......</p>-->
+                            </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
 
 
 

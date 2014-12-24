@@ -5,13 +5,39 @@ import os
 from PIL import Image as PImage
 from NuedcSite.settings import  MEDIA_ROOT
 
+class Album(models.Model):
+    title = models.CharField(max_length=60)
+    description = models.TextField(blank=True)
+    #image = models.ManyToManyField(Image)
+    rating = models.IntegerField(default=0)
 
+    class Meta: 
+        ordering = ['-rating']
+
+    def cover(self):
+        cover = self.image_set.all()
+        return cover[0].image.name
+
+    def date(self):
+        cover = self.image_set.all()
+        return cover[0].created
+
+    def __unicode__(self):
+        return self.title
+
+    def images(self):
+        lst = [x.image.name for x in self.image_set.all()]
+        lst = ["""<img border="0" src="/media/%s"  title="%s"  height="40" />""" % (x, x.split('/')[-1]) for x in lst]
+        return join(lst, ', ')
+    images.allow_tags = True
+    
 class Image(models.Model):
     image = models.FileField(upload_to="images/")
     created = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(default=0)
     width = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
+    album = models.ForeignKey(Album)
 
     class Meta: 
         ordering = ['-id']
@@ -35,31 +61,6 @@ class Image(models.Model):
                                                                     (self.image.name, self.image.name))
     thumbnail.allow_tags = True
 
-class Album(models.Model):
-    title = models.CharField(max_length=60)
-    description = models.TextField(blank=True)
-    image = models.ManyToManyField(Image)
-    rating = models.IntegerField(default=0)
-
-    class Meta: 
-        ordering = ['-rating']
-
-    def cover(self):
-        cover = self.image.all()
-        return cover[0].image.name
-
-    def date(self):
-        cover = self.image.all()
-        return cover[0].created
-
-    def __unicode__(self):
-        return self.title
-
-    def images(self):
-        lst = [x.image.name for x in self.image.all()]
-        lst = ["""<img border="0" src="/media/%s"  title="%s"  height="40" />""" % (x, x.split('/')[-1]) for x in lst]
-        return join(lst, ', ')
-    images.allow_tags = True
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ["title"]

@@ -30,7 +30,7 @@
                     </div>
                     <hr style="clear:both;"/>
                     <div style="clear:both;">
-                    {% for i in album.image.all %}
+                    {% for i in album.image_set.all %}
                         <a href="/album/images/{{album.id}}n{{i.id}}/">
                             <img title="{{i.image.name}}" class="img-thumbnail" src="/media/{{i.image.name}}" align="center" onload="DrawImage(this,200,200)" width="190" height="112">
                         </a>

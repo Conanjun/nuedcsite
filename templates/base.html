@@ -60,20 +60,23 @@
           </div>
           -->
           <div class="sidebar-module">
-            <h4>查找旧闻</h4>
+            <h4>新闻列表</h4>
             <ol class="list-unstyled">
-              <li><a href="#">11/2014</a></li>
-              <li><a href="#">10/2014</a></li>
-              <li><a href="#">9/014</a></li>
-              <li><a href="#">8/2014</a></li>
-              <li><a href="#">7/2014</a></li>
-              <li><a href="#">6/2014</a></li>
-              <li><a href="#">5/2014</a></li>
-              <li><a href="#">4/2014</a></li>
-              <li><a href="#">3/2014</a></li>
-              <li><a href="#">2/2014</a></li>
-              <li><a href="#">1/2014</a></li>
-              <li><a href="#">12/2013</a></li>
+             
+            {% for ls in news_list %}
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.title }}</a></li>
+            {% endfor %}
+      
+            </ol>
+          </div>
+           <div class="sidebar-module">
+            <h4>公告列表</h4>
+            <ol class="list-unstyled">
+             
+            {% for ls in notify_list %}
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.title }}</a></li>
+            {% endfor %}
+      
             </ol>
           </div>
         {% endblock %}

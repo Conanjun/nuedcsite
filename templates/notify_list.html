@@ -55,10 +55,10 @@
     </div>
     -->
     <div class="sidebar-module">
-        <h4>查找旧闻</h4>
+        <h4>公告列表</h4>
         <ol class="list-unstyled">
             {% for ls in side_list %}
-                <li><a href="{% url show_notify %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+                <li><a href="{% url show_notify %}?id={{ls.id }}">{{ ls.title }}</a></li>
             {% endfor %}
         </ol>
     </div>

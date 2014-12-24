@@ -55,10 +55,10 @@
         <p>我要告诉你们我是身经百战了,见得多了,西方国家哪一个我没去过...</p>
     </div>
     <div class="sidebar-module">
-        <h4>查找旧闻</h4>
+        <h4>新闻列表</h4>
         <ol class="list-unstyled">
             {% for ls in side_list %}
-                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.uptime|date:"F j, Y" }}</a></li>
+                <li><a href="{% url show_article %}?id={{ls.id }}">{{ ls.title }}</a></li>
             {% endfor %}
         </ol>
     </div>

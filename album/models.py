@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.db import models
 from django.contrib import admin
 from string import join
@@ -13,7 +14,8 @@ class Album(models.Model):
 
     class Meta: 
         ordering = ['-rating']
-
+        verbose_name = u"相册"
+        verbose_name_plural = "相册列表"
     def cover(self):
         cover = self.image_set.all()
         return cover[0].image.name
@@ -41,6 +43,8 @@ class Image(models.Model):
 
     class Meta: 
         ordering = ['-id']
+        verbose_name = u"照片"
+        verbose_name_plural = "照片列表"
 
     def __unicode__(self):
         return self.image.name

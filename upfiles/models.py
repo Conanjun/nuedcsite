@@ -1,3 +1,4 @@
+# -*- coding:utf-8 -*-
 from django.db import models
 from django.contrib import admin
 from NuedcSite.settings import  MEDIA_ROOT
@@ -12,6 +13,8 @@ class UpFile(models.Model):
 
     def __unicode__(self):
         return self.upfile.name
+        verbose_name = u"上传文件"
+        verbose_name_plural = "上传文件列表"
 
 
 class FileAdmin(admin.ModelAdmin):

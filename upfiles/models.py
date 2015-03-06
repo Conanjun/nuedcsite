@@ -13,6 +13,8 @@ class UpFile(models.Model):
 
     def __unicode__(self):
         return self.upfile.name
+
+    class Meta: 
         verbose_name = u"上传文件"
         verbose_name_plural = "上传文件列表"
 

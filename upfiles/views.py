@@ -13,7 +13,7 @@ range_len = 3
 @csrf_protect
 def index(request):
     file_list = UpFile.objects.all()
-    side_list = UpFile.objects.order_by("-created")[0:12]
+    side_list = UpFile.objects.order_by("-created")[0:3]
     paginator = Paginator(file_list, COUNT_PER_PAGE)
     try:
         page = int(request.GET.get('page', '1'))
@@ -21,6 +21,8 @@ def index(request):
         page = 1
     try:
         this_page = paginator.page(page)
+        this_page.next_page_number = this_page.number
+        this_page.previous_page_number = this_page.number 
     except (EmptyPage, InvalidPage):
         if page == 0:
             this_page = paginator.page(1)

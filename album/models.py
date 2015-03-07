@@ -16,6 +16,7 @@ class Album(models.Model):
         ordering = ['-rating']
         verbose_name = u"相册"
         verbose_name_plural = "相册列表"
+        
     def cover(self):
         cover = self.image_set.all()
         return cover[0].image.name

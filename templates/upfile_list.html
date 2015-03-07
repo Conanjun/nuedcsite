@@ -34,6 +34,7 @@
             </div>
         </div>
 
+        <nav >
         <ul class="pagination">
             <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
             {% for i in length %}
@@ -41,6 +42,7 @@
             {% endfor %}
             <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
         </ul>
+    </nav> 
     </div>
 
 {% endblock %}

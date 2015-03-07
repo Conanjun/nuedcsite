@@ -43,15 +43,16 @@
             </div>
         </div><!-- /.blog-post -->
           
-			<nav ><!--nav-->
-			  <ul class="pagination">
-			    <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a></li>
-            {% for i in length %}
+    <nav ><!--nav-->
+    <ul class="pagination">
+        <li><a href="?page={{ this_page.previous_page_number }}">&laquo;</a>
+        </li>
+        {% for i in length %}
             <li class="current"><a href="?page={{ i }}">{{ i }}</a></li>
-            {% endfor %}
-            <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
-			  </ul>
-			</nav>  
+        {% endfor %}
+        <li><a href="?page={{ this_page.next_page_number }}">&raquo;</a></li>
+    </ul>
+    </nav>  
 			<!--/nav-->
     </div><!-- /.blog-main -->
 

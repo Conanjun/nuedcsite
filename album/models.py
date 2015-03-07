@@ -8,11 +8,11 @@ from NuedcSite.settings import  MEDIA_ROOT
 
     
 class Image(models.Model):
-    image = models.FileField(upload_to="images/")
-    created = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
-    width = models.IntegerField(blank=True, null=True)
-    height = models.IntegerField(blank=True, null=True)
+    image = models.FileField(upload_to="images/", verbose_name = u"照片")
+    created = models.DateTimeField(auto_now_add=True, verbose_name = u"创建日期")
+    rating = models.IntegerField(default=0, verbose_name = u"点击量")
+    width = models.IntegerField(blank=True, null=True, verbose_name = u"宽")
+    height = models.IntegerField(blank=True, null=True, verbose_name = u"高")
     #album = models.ForeignKey(Album)
 
     class Meta: 
@@ -39,12 +39,12 @@ class Image(models.Model):
                                                                     (self.image.name, self.image.name))
     thumbnail.allow_tags = True
 
-    
+
 class Album(models.Model):
-    title = models.CharField(max_length=60)
-    description = models.TextField(blank=True)
-    image = models.ManyToManyField(Image, blank = True, null = True)
-    rating = models.IntegerField(default=0)
+    title = models.CharField(max_length=60, verbose_name = u"标题")
+    description = models.TextField(blank=True, verbose_name = u"相册简介")
+    image = models.ManyToManyField(Image, blank = True, null = True, verbose_name = u"照片列表")
+    rating = models.IntegerField(default=0, verbose_name = u"点击量")
 
     class Meta: 
         ordering = ['-rating']

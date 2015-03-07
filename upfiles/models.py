@@ -5,11 +5,11 @@ from NuedcSite.settings import  MEDIA_ROOT
 
 # Create your models here.
 class UpFile(models.Model):
-    title = models.CharField(max_length=50)
-    descript = models.CharField(max_length=150)
-    upfile = models.FileField(upload_to="upfiles/")
-    created = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(default=0)
+    title = models.CharField(max_length=50, verbose_name = u"标题")
+    descript = models.CharField(max_length=150, verbose_name = u"文件描述")
+    upfile = models.FileField(upload_to="upfiles/", verbose_name = u"文件")
+    created = models.DateTimeField(auto_now_add=True, verbose_name = u"上传时间")
+    rating = models.IntegerField(default=0, verbose_name = u"点击量")
 
     def __unicode__(self):
         return self.upfile.name

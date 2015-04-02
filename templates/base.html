@@ -6,11 +6,11 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-"    <meta name="author" content="">
+    <meta name="author" content="">
     <link rel="icon" href="#">
 
     <title>电子设计竞赛 四川赛区</title>
-    <!--<link href="/static/css/bootstrap.css" rel="stylesheet">-->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/blog.css" rel="stylesheet">
     <script src="/static/js/ie-emulation-modes-warning.js"></script>
@@ -27,13 +27,13 @@
           <a class="blog-nav-item {% ifequal nav 'home' %}active{% endifequal %}"
           href="/"><i class="icon-home"></i>主页</a>
           <a class="blog-nav-item {% ifequal nav 'news' %}active{% endifequal %}"
-          href="{% url "news_index" %}"><i class="icon-comments-alt"></i>新闻</a>
+          href="{% url news_index %}"><i class="icon-comments-alt"></i>新闻</a>
           <a class="blog-nav-item {% ifequal nav 'notify' %}active{% endifequal %}"
-          href="{% url "notify_index" %}"><i class="icon-bell-alt"></i>公告</a>
+          href="{% url notify_index %}"><i class="icon-bell-alt"></i>公告</a>
           <a class="blog-nav-item {% ifequal nav 'upfiles' %}active{% endifequal %}"
-          href="{% url "files_index" %}"><i class="icon-download-alt"></i>资料下载</a>
+          href="{% url files_index %}"><i class="icon-download-alt"></i>资料下载</a>
           <a class="blog-nav-item {% ifequal nav 'album' %}active{% endifequal %}"
-          href="{% url "album_index" %}"><i class="icon-picture"></i>相册</a>
+          href="{% url album_index %}"><i class="icon-picture"></i>相册</a>
         </nav>
       </div>
     </div>
